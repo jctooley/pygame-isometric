@@ -42,4 +42,7 @@ class Game:
                 rect = pg.Rect(sq[0][0], sq[0][1], TILE_SIZE, TILE_SIZE)
                 pg.draw.rect(self.screen, (0, 0, 255), rect, 1)
 
+                p = self.world.world[x][x]["iso_poly"]
+                pg.draw.polygon(self.screen, (255, 0, 0), p, 1)
+
         pg.display.flip()

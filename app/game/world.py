@@ -29,6 +29,13 @@ class World:
             (grid_x * TILE_SIZE, grid_y * TILE_SIZE + TILE_SIZE),
         ]
 
-        out = {"grid": [grid_x, grid_y], "cart_rect": rect}
+        iso_poly = [self.cart_to_iso(x, y) for x, y in rect]
+
+        out = {"grid": [grid_x, grid_y], "cart_rect": rect, "iso_poly": iso_poly}
 
         return out
+
+    def cart_to_iso(self, x: int, y: int):
+        iso_x = x - y
+        iso_y = (x + y) / 2
+        return iso_x, iso_y
