@@ -1,6 +1,7 @@
 import sys
 import pygame
-from settings import SCREEN_HEIGHT, SCREEN_WIDTH
+from sandbox.src.settings import SCREEN_HEIGHT, SCREEN_WIDTH
+from sandbox.src.level import Level
 
 
 class Game:
@@ -9,6 +10,7 @@ class Game:
         pygame.display.set_caption("Sandbox Game")
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
+        self.level = Level()
 
     def run(self):
         while True:
@@ -18,6 +20,7 @@ class Game:
                     sys.exit()
 
             dt = self.clock.tick() / 1000
+            self.level.run(dt)
             pygame.display.update()
 
 
