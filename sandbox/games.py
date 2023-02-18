@@ -6,6 +6,7 @@ from settings import SCREEN_HEIGHT, SCREEN_WIDTH
 class Game:
     def __init__(self) -> None:
         pygame.init()
+        pygame.display.set_caption("Sandbox Game")
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
 
