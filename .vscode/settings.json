@@ -1,1 +1,14 @@
-{}
+{
+  "[python]": {
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.wordBasedSuggestions": false,
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    }
+  },
+  "editor.indentSize": "tabSize",
+  "editor.insertSpaces": true,
+  "editor.tabSize": 4,
+  "editor.formatOnSave": true
+}
