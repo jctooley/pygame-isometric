@@ -10,6 +10,7 @@ class Player(pygame.sprite.Sprite):
 
         self.import_assets()
         self.status = "down"
+        self.status = "down"
         self.frame_index = 0
 
         # general setup
@@ -81,12 +82,6 @@ class Player(pygame.sprite.Sprite):
 
         if keys[pygame.K_SPACE]:
             print("space")
-
-    def update_status(self):
-        # if the plays is not moving:
-        if self.direction.magnitude() == 0:
-            # add _idle to the status
-            self.status = self.status.split("_")[0] + "_idle"
 
     def move(self, dt: float):
         # Only need to continue if there is actual movement
