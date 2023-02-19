@@ -1,6 +1,6 @@
 import pygame
-from sandbox.src.settings import *
-from sandbox.src.player import Player
+from settings import *
+from player import Player
 
 
 class Level:

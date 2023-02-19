@@ -1,7 +1,7 @@
 import sys
 import pygame
-from sandbox.src.settings import SCREEN_HEIGHT, SCREEN_WIDTH
-from sandbox.src.level import Level
+from settings import SCREEN_HEIGHT, SCREEN_WIDTH
+from level import Level
 
 
 class Game:

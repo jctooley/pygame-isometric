@@ -1,6 +1,7 @@
+import os
 import pygame
-from sandbox.src.settings import *
-from sandbox.src.support import import_folder
+from settings import SCREEN_HEIGHT, SCREEN_WIDTH
+from utils import import_folder
 
 
 class Player(pygame.sprite.Sprite):
@@ -20,6 +21,7 @@ class Player(pygame.sprite.Sprite):
         self.speed = 200
 
     def import_assets(self):
+        print("Importing player assets")
         self.animations = {
             "up": [],
             "down": [],
@@ -44,7 +46,7 @@ class Player(pygame.sprite.Sprite):
         }
 
         for animation in self.animations.keys():
-            full_path = "../graphics/character/" + animation
+            full_path = os.path.join("sandbox/graphics/character", animation)
             self.animations[animation] = import_folder(full_path)
 
     def input(self):
