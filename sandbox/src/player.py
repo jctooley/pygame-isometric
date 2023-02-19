@@ -1,7 +1,7 @@
 import os
 import pygame
 from settings import SCREEN_HEIGHT, SCREEN_WIDTH
-from utils import import_folder
+from utils import import_folder, Timer
 
 
 class Player(pygame.sprite.Sprite):
@@ -21,6 +21,17 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2()
         self.pos = pygame.math.Vector2(self.rect.center)
         self.speed = 200
+
+        # timers
+        self.timers = {"tool_use": Timer(350, self.use_tool), "tool_switch": Timer(200)}
+
+        # tools
+        self.tools = ["hoe", "axe", "water"]
+        self.tool_index = 0
+        self.selected_tool = self.tools[self.tool_index]
+
+    def use_tool(self):
+        pass
 
     def import_assets(self):
         print("Importing player assets")
@@ -62,6 +73,11 @@ class Player(pygame.sprite.Sprite):
     def input(self):
         keys = pygame.key.get_pressed()
 
+        if self.timers["tool_use"].active:
+            # No movement allowed when tools are active
+            return
+
+        # directions
         if keys[pygame.K_UP]:
             self.direction.y = -1
             self.status = "up"
@@ -80,8 +96,25 @@ class Player(pygame.sprite.Sprite):
         else:
             self.direction.x = 0
 
+        # tool use
         if keys[pygame.K_SPACE]:
-            print("space")
+            self.timers["tool_use"].activate()
+            self.direction = pygame.math.Vector2()
+            self.frame_index = 0
+
+        # change tool
+        if keys[pygame.K_t] and not self.timers["tool_switch"].active:
+            self.timers["tool_switch"].activate()
+            self.change_tool()
+
+    def change_tool(self):
+        self.tool_index += 1
+        self.tool_index = self.tool_index if self.tool_index < len(self.tools) else 0
+        print(self.tool_index)
+        self.selected_tool = self.tools[self.tool_index]
+
+        if self.timers["tool_use"].active:
+            self.status = self.status.split("_")[0] + "_" + self.selected_tool
 
     def move(self, dt: float):
         # Only need to continue if there is actual movement
@@ -99,8 +132,13 @@ class Player(pygame.sprite.Sprite):
         self.pos.y += self.direction.y * self.speed * dt
         self.rect.centery = self.pos.y
 
+    def update_timers(self):
+        for timer in self.timers.values():
+            timer.update()
+
     def update(self, dt: float):
         self.input()
         self.move(dt)
         self.animate(dt)
         self.update_status()
+        self.update_timers()
