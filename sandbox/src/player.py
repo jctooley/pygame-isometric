@@ -62,8 +62,6 @@ class Player(pygame.sprite.Sprite):
             full_path = os.path.join("sandbox/graphics/character", animation)
             self.animations[animation] = import_folder(full_path)
 
-        print(self.animations)
-
     def animate(self, dt: float):
         self.frame_index += 4 * dt
         if self.frame_index >= len(self.animations[self.status]):
@@ -131,6 +129,12 @@ class Player(pygame.sprite.Sprite):
         # vertical movement
         self.pos.y += self.direction.y * self.speed * dt
         self.rect.centery = self.pos.y
+
+    def update_status(self):
+        # if the plays is not moving:
+        if self.direction.magnitude() == 0:
+            # add _idle to the status
+            self.status = self.status.split("_")[0] + "_idle"
 
     def update_timers(self):
         for timer in self.timers.values():
